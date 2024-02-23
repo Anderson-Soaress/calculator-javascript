@@ -1,5 +1,65 @@
 *{
     margin:0;
     padding:0;
+    font: 20px Arial;
 }
 
+.calculator_box{
+    margin: 50px 150px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap:40px;
+    background: rgb(60, 60, 60);
+    padding: 40px;
+    width: 250px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    border: solid 5px rgb(40, 40, 40);
+}
+
+.calculator_display{
+    background: rgb(230, 230, 230);
+    width: 200px;
+    padding:10px 20px;
+    box-shadow: 0 3px rgb(150, 150, 150);
+    border-radius: 5px;
+}
+
+/* Keyboard section */
+
+.calculator_keyboard{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.numbers_section{
+    display: flex;
+    gap:10px;
+    flex-wrap: wrap;
+    width: 170px;
+}
+
+.operators_section{
+    display: flex;
+    gap:10px;
+    flex-direction: column;
+}
+
+.calculator_box button{
+    cursor: pointer;
+    width: 50px;
+    height: 40px;
+    background: white;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 3px rgb(150, 150, 150);
+}
+
+.calculator_box button:active{
+    background-color: rgb(240, 240, 240);
+    box-shadow: 0 1px rgb(150, 150, 150);
+    transform: translateY(2px);
+}
