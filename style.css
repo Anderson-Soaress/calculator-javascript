@@ -18,7 +18,8 @@
     border: solid 5px rgb(40, 40, 40);
 }
 
-.calculator_display{
+.display input{
+    cursor: alias;
     background: rgb(230, 230, 230);
     width: 200px;
     padding:10px 20px;
