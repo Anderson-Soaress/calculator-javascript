@@ -82,7 +82,7 @@ operators.forEach(operator => operator.addEventListener('click', () => {
         if(typeof(numberValue) == "number"){
             numbersList.push(numberValue);
             numbersList.push(stringOperator);
-            display.placeholder = stringOperator;
+            display.placeholder = '';
             numberValue = undefined;
             displayText = '';
         } 
@@ -91,18 +91,18 @@ operators.forEach(operator => operator.addEventListener('click', () => {
             && typeof(numberValue) != "number"){ 
             // if the last item was an operator dont add one more operator, only change them
             numbersList[numbersList.length-1] = stringOperator;
-            display.placeholder = stringOperator;
+            display.placeholder = '';
             numberValue = undefined;
             displayText = '';
         } else if (typeof(numberValue) == 'number'){ // if the expect inputs are insert
             numbersList.push(numberValue);
             numbersList.push(stringOperator);
-            display.placeholder = stringOperator;
+            display.placeholder = '';
             numberValue = undefined; 
             displayText = ''; 
         } else { 
             numbersList.push(stringOperator);
-            display.placeholder = stringOperator;
+            display.placeholder = '';
             numberValue = undefined; 
             displayText = '';
         }
@@ -115,7 +115,7 @@ operators.forEach(operator => operator.addEventListener('click', () => {
     }
 
 
-    displayCurrent.placeholder = numbersList
+    displayCurrent.placeholder = numbersList.join(" ")
 
 }))
 
@@ -134,7 +134,7 @@ equal.addEventListener('click', () => {
      // because the expected array is something like [number, operator, number, operator, number]
 
 
-    displayCurrent.placeholder = numbersList;
+    displayCurrent.placeholder = numbersList.join(" ");
 
     console.log(numbersList);
     if(numbersList.length >= 3){ //
