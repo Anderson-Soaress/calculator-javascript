@@ -47,6 +47,7 @@ let numbersList = [];
 let numberValue;
 let lastItem;
 let res;
+let stringNumber;
 
 const display = document.querySelector('#calculator_display');
 const displayCurrent = document.querySelector('#calculator_current')
@@ -54,21 +55,32 @@ const numbers = document.querySelectorAll('.number');
 const equal = document.querySelector('#equal');
 const operators = document.querySelectorAll('.operator');
 const clear = document.querySelector('#clear');
+const changeSign = document.querySelector('#change_sign');
+const backspace = document.querySelector('#backspace');
 
 numbers.forEach(number => number.addEventListener('click', () => {
+
     lastItem = numbersList[numbersList.length-1];
     if((typeof(res) == "number") 
     && !(lastItem == '+' || lastItem == '-' || lastItem == '*' || lastItem == '/')){
         clearFunction();
-    } /* 
-        this function is for after the result when the number button is pressed it will be understood 
-        that is another calculation, but if press an operation the calculation will continue with the result as a number value
-       */
+    } 
 
-    const stringNumber = number.value; // Get the value from button (value is string)
+    /* 
+    this function is for after the result when the number button is pressed it will be understood 
+    that is another calculation, but if press an operation the calculation will continue with the result as a number value
+    */
 
-    display.placeholder = displayText += stringNumber; //Show the number on display
-    
+    stringNumber = number.value; // Get the value from button (value is string)
+
+    if(displayText.includes('.')){
+        if(!(stringNumber == '.')){ // this test if already have a ".", to number not be like 0.....5 or 2.2.2
+            display.placeholder = displayText += stringNumber; //Show the number on display
+        } 
+    } else {
+        display.placeholder = displayText += stringNumber; //Show the number on display
+    }
+
     numberValue = Number(displayText); 
 }))
 
@@ -118,6 +130,43 @@ operators.forEach(operator => operator.addEventListener('click', () => {
     displayCurrent.placeholder = numbersList.join(" ")
 
 }))
+
+backspace.addEventListener('click', () => {
+    lastItem = numbersList[numbersList.length-1];
+    if(res == undefined){
+        if(display.placeholder == ""){
+            if(!(numbersList.length == 0)){
+                if(lastItem == '+' || lastItem == '-' || lastItem == '*' || lastItem == '/'){
+                    numbersList.pop();
+                    numbersList.pop();
+                } else{
+                    numbersList.pop();
+                }
+                displayCurrent.placeholder = numbersList.join(" ");
+            }
+        } else {
+            displayText = '';
+            display.placeholder = '';
+            stringNumber = '';
+            numberValue = undefined;
+        }
+    } else {
+        clearFunction();
+    }
+})
+
+changeSign.addEventListener('click', () => {
+    if(!(numberValue == undefined)){
+        if(Math.sign(numberValue) == 1){ 
+            numberValue *= -1
+        } else if (Math.sign(numberValue) == -1){
+            numberValue *= -1
+        }
+        stringNumber = String(numberValue);
+        displayText = '';
+        display.placeholder = displayText += stringNumber;
+    } // check if number is positive or negative and change them sign, if number is zero or undefined do nothing
+})
 
 equal.addEventListener('click', () => {
     lastItem = numbersList[numbersList.length-1];
