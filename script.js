@@ -185,16 +185,23 @@ equal.addEventListener('click', () => {
 
     displayCurrent.placeholder = numbersList.join(" ");
 
-    console.log(numbersList);
     if(numbersList.length >= 3){ //
         lastItem = numbersList[numbersList.length-1];
         if(!(lastItem == '+' || lastItem == '-' || lastItem == '*' || lastItem == '/') 
             && typeof(lastItem) == "number"){ // same as above, this test if the array is like the expected
+                while(numbersList.includes("*") || numbersList.includes("/")){ // Calculate multiply and divide first
+                    numbersList.forEach((number, index) => {
+                        if (number == "*" || number == "/"){
+                            res = operate(numbersList[index-1], numbersList[index], numbersList[index+1]);
+                            numbersList.splice(index, 2)
+                            numbersList[index-1] = res
+                        }
+                    })
+                }
+
                 while(numbersList.length != 1){ 
                     res = operate(numbersList[0], numbersList[1], numbersList[2]);
-                    numbersList.shift();
-                    numbersList.shift();
-                    numbersList.shift();
+                    numbersList.splice(0,3)
                     numbersList.unshift(res);
                     display.placeholder = res;
                 }
@@ -206,6 +213,9 @@ equal.addEventListener('click', () => {
             if have more numbers this will call the function again, 
             and now the first 3 value will be: result,operator that was in 4 position, number was in 5 position,
             this will keep going until the numbers.lenght reach 1.
+            NEW: the calculation still running this way above, but now calculate multiply and divide first using a for each
+            that when the value of array is a "*" or "/" he gets the index of operation and call the function with index-1 and index +1
+            which represent the left value from operate and the right value from operate then remove the 3 elements and replace the result in index-1
             */
     }
 });
@@ -219,3 +229,4 @@ function clearFunction(){
     res = undefined;
 }
 clear.addEventListener('click', clearFunction);
+
